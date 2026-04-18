@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const greatVibes = Great_Vibes({ 
+  weight: '400',
+  subsets: ["latin"],
+  variable: "--font-great-vibes"
+});
 
 export const metadata: Metadata = {
   title: "Bloom Time - 花园日历",
@@ -17,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh">
-      <body className={`${inter.className} bg-stone-50 min-h-screen pt-16`}>
+      <body className={`${inter.variable} ${greatVibes.variable} font-sans bg-stone-50 min-h-screen pt-16`}>
         <Navbar />
         {children}
       </body>
