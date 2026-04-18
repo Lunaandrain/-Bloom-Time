@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh">
-      <body className={`${inter.variable} ${greatVibes.variable} font-sans bg-stone-50 min-h-screen pt-16`}>
+      <body className={`${inter.variable} ${greatVibes.variable} font-sans bg-stone-50 min-h-screen`}>
         <Navbar />
         {children}
       </body>

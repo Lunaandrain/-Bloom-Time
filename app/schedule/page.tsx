@@ -8,7 +8,7 @@ export default function SchedulePage() {
   const today = format(new Date(), 'yyyy-MM-dd');
   
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 flex gap-6 h-[calc(100vh-4rem)]">
+    <div className="max-w-7xl mx-auto px-4 pt-24 pb-8 flex gap-6 h-screen">
       <div className="w-64 flex-shrink-0">
         <EventPanel />
       </div>
