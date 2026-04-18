@@ -65,10 +65,12 @@ export default function Timeline({ date }: { date: string }) {
                         }
                       }}
                       onMouseEnter={() => handlePaint(time)}
-                      className={`flex-grow h-full min-h-0 rounded-md border border-gray-100 transition-colors cursor-pointer flex items-center px-3 shadow-sm ${
-                        event ? event.color : 'bg-gray-50 hover:bg-gray-100'
+                      className={`flex-grow h-full min-h-0 rounded-md border transition-colors cursor-pointer flex items-center px-3 shadow-sm ${
+                        event 
+                          ? `${event.color} border-transparent` 
+                          : 'bg-gray-50 border-gray-100 hover:bg-gray-100'
                       }`}
-                      style={!event && activeEventId ? { '--hover-color': activeEvent?.color } as any : {}}
+                      style={!event && activeEventId && activeEventId !== 'eraser' ? { '--hover-color': activeEvent?.color } as any : {}}
                     >
                       {event && <span className="text-gray-700 text-xs font-medium truncate">{event.name}</span>}
                     </motion.div>

@@ -22,6 +22,8 @@ interface ScheduleState {
   records: Record<string, DailyRecord>; // date -> record
   activeEventId: string | null;
   addEvent: (event: Omit<EventConfig, 'id'>) => void;
+  updateEvent: (id: string, updates: Partial<Omit<EventConfig, 'id'>>) => void;
+  deleteEvent: (id: string) => void;
   setActiveEvent: (id: string | null) => void;
   updateTimeBlock: (date: string, timeKey: string, eventId: string) => void;
   updateWeight: (date: string, weight: number) => void;
@@ -40,10 +42,23 @@ export const useScheduleStore = create<ScheduleState>()(
       addEvent: (event) => set((state) => ({
         events: [...state.events, { ...event, id: Date.now().toString() }]
       })),
+      updateEvent: (id, updates) => set((state) => ({
+        events: state.events.map(e => e.id === id ? { ...e, ...updates } : e)
+      })),
+      deleteEvent: (id) => set((state) => ({
+        events: state.events.filter(e => e.id !== id),
+        activeEventId: state.activeEventId === id ? null : state.activeEventId
+      })),
       setActiveEvent: (id) => set({ activeEventId: id }),
       updateTimeBlock: (date, timeKey, eventId) => set((state) => {
         const record = state.records[date] || { date, weight: null, weightScore: 0, timeBlocks: {}, totalScore: 0 };
-        const newTimeBlocks = { ...record.timeBlocks, [timeKey]: eventId };
+        const newTimeBlocks = { ...record.timeBlocks };
+        
+        if (eventId === 'eraser') {
+          delete newTimeBlocks[timeKey];
+        } else {
+          newTimeBlocks[timeKey] = eventId;
+        }
         
         let newScore = record.weightScore;
         Object.values(newTimeBlocks).forEach(eId => {
