@@ -60,6 +60,7 @@ export default function EventPanel() {
 
   const handleContextMenu = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
+    e.stopPropagation();
     setContextMenu({ id, x: e.clientX, y: e.clientY });
   };
 
@@ -227,20 +228,26 @@ export default function EventPanel() {
       {contextMenu && (
         <div 
           ref={contextMenuRef}
-          className="fixed z-50 bg-white rounded-xl shadow-lg border border-gray-100 py-1 w-32 overflow-hidden text-sm"
+          className="fixed z-[100] bg-white rounded-xl shadow-lg border border-gray-100 py-1 w-24 overflow-hidden text-sm"
           style={{ top: contextMenu.y, left: contextMenu.x }}
         >
           <button 
-            onClick={() => startEdit(contextMenu.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              startEdit(contextMenu.id);
+            }}
             className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 flex items-center gap-2"
           >
-            <Edit2 size={14} /> 编辑事件
+            <Edit2 size={14} /> 编辑
           </button>
           <button 
-            onClick={() => handleDelete(contextMenu.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete(contextMenu.id);
+            }}
             className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 flex items-center gap-2"
           >
-            <Trash2 size={14} /> 删除事件
+            <Trash2 size={14} /> 删除
           </button>
         </div>
       )}
