@@ -94,7 +94,7 @@ export default function EventPanel() {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-gray-100 h-full flex flex-col relative">
+    <div className="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-gray-100 h-full flex flex-col relative" style={{ transform: 'none' }}>
       <h2 className="text-lg font-bold text-gray-800 mb-4">事件配置</h2>
       
       <div className="flex-grow overflow-y-auto pr-1">
@@ -224,12 +224,16 @@ export default function EventPanel() {
         </div>
       )}
 
-      {/* Context Menu */}
+      {/* Context Menu - Rendered via React Portal in a real app, but here we use fixed + high z-index and ensure no parent transforms */}
       {contextMenu && (
         <div 
           ref={contextMenuRef}
-          className="fixed z-[100] bg-white rounded-xl shadow-lg border border-gray-100 py-1 w-24 overflow-hidden text-sm"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
+          className="fixed z-[9999] bg-white rounded-xl shadow-xl border border-gray-200 py-1 w-24 overflow-hidden text-sm"
+          style={{ 
+            top: `${contextMenu.y}px`, 
+            left: `${contextMenu.x}px`,
+            margin: 0
+          }}
         >
           <button 
             onClick={(e) => {
