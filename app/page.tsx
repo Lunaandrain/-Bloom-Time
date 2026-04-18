@@ -47,32 +47,32 @@ export default function Home() {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Optional overlay for better text readability if the image is too bright */}
-      <div className="absolute inset-0 bg-black/10 z-0"></div>
+      {/* Global glassmorphism overlay */}
+      <div className="absolute inset-0 bg-white/5 backdrop-blur-[4px] z-0"></div>
 
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, type: "spring", bounce: 0.4 }}
-        className="z-10 flex flex-col items-center text-center p-12 rounded-3xl bg-white/10 backdrop-blur-md border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)]"
+        className="z-10 flex flex-col items-center text-center p-12"
       >
-        <h1 className="font-artistic text-7xl md:text-9xl text-white mb-6 drop-shadow-lg tracking-wide">
+        <h1 className="font-artistic text-7xl md:text-9xl text-white mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] tracking-wide">
           Bloom Time
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 font-light tracking-[0.2em] mb-12 drop-shadow-md">
+        <p className="text-xl md:text-2xl text-white/95 font-light tracking-[0.2em] mb-12 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           种下时间，收获花园
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6">
           <Link 
             href="/schedule"
-            className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 border border-white/50 text-white transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl hover:-translate-y-1 font-light tracking-widest"
+            className="px-8 py-3 rounded-full bg-white/20 hover:bg-white/30 border border-white/50 text-white transition-all duration-300 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-xl hover:-translate-y-1 font-light tracking-widest"
           >
             开始打卡
           </Link>
           <Link 
             href="/garden"
-            className="px-8 py-3 rounded-full bg-black/20 hover:bg-black/30 border border-white/20 text-white transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-xl hover:-translate-y-1 font-light tracking-widest"
+            className="px-8 py-3 rounded-full bg-black/20 hover:bg-black/30 border border-white/20 text-white transition-all duration-300 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-xl hover:-translate-y-1 font-light tracking-widest"
           >
             去看看花
           </Link>
