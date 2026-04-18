@@ -71,7 +71,7 @@ export default function Home() {
         </h1>
         
         <p className="text-base md:text-lg text-white/80 font-light tracking-[0.15em] mb-12 max-w-2xl leading-relaxed drop-shadow-md">
-          种下时间，收获花园。Discover the beauty of time management in ways once unimaginable. Our pioneering schedule system brings deep-space exploration within reach.
+          种下时间，收获花园。
         </p>
         
         <div className="flex flex-col sm:flex-row items-center gap-8">
