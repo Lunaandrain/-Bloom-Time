@@ -16,10 +16,10 @@ export default function Navbar() {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       isHome 
         ? 'bg-transparent border-transparent text-white' 
-        : 'bg-white/70 backdrop-blur-md border-b border-gray-100 text-gray-800'
+        : 'bg-white/70 backdrop-blur-md border-b border-slate-100 text-slate-800'
     }`}>
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className={`font-bold text-xl ${isHome ? 'text-white drop-shadow-md' : 'text-green-700'}`}>Bloom Time</div>
+        <div className={`font-bold text-xl ${isHome ? 'text-white drop-shadow-md' : 'text-indigo-900 tracking-tight'}`}>Bloom Time</div>
         <div className="flex space-x-8">
           {links.map(link => {
             const isActive = pathname === link.href;
@@ -28,7 +28,7 @@ export default function Navbar() {
             if (isHome) {
               linkClass = isActive ? 'text-white font-medium drop-shadow-md' : 'text-white/70 hover:text-white drop-shadow-sm';
             } else {
-              linkClass = isActive ? 'text-green-600 font-medium' : 'text-gray-500 hover:text-green-500';
+              linkClass = isActive ? 'text-indigo-600 font-semibold' : 'text-slate-400 hover:text-indigo-500 font-medium';
             }
             
             return (

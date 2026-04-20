@@ -4,10 +4,32 @@ import { useScheduleStore } from '@/store/useScheduleStore';
 import { Plus, Check, X, Eraser, Edit2, Trash2 } from 'lucide-react';
 
 const EVENT_COLORS = [
-  'bg-red-200', 'bg-orange-200', 'bg-amber-200', 'bg-lime-200', 
-  'bg-green-200', 'bg-emerald-200', 'bg-teal-200', 'bg-cyan-200', 
-  'bg-sky-200', 'bg-blue-200', 'bg-indigo-200', 'bg-violet-200', 
-  'bg-purple-200', 'bg-fuchsia-200', 'bg-pink-200', 'bg-rose-200'
+  'bg-slate-50/80 text-slate-700 border-slate-200',
+  'bg-gray-100/80 text-gray-700 border-gray-200',
+  'bg-zinc-100/80 text-zinc-700 border-zinc-200',
+  'bg-neutral-100/80 text-neutral-700 border-neutral-200',
+  'bg-stone-100/80 text-stone-700 border-stone-200',
+  
+  'bg-red-50/80 text-red-700 border-red-200',
+  'bg-orange-50/80 text-orange-700 border-orange-200',
+  'bg-amber-50/80 text-amber-700 border-amber-200',
+  'bg-yellow-50/80 text-yellow-700 border-yellow-200',
+  
+  'bg-lime-50/80 text-lime-700 border-lime-200',
+  'bg-green-50/80 text-green-700 border-green-200',
+  'bg-emerald-50/80 text-emerald-700 border-emerald-200',
+  'bg-teal-50/80 text-teal-700 border-teal-200',
+  'bg-cyan-50/80 text-cyan-700 border-cyan-200',
+  
+  'bg-sky-50/80 text-sky-700 border-sky-200',
+  'bg-blue-50/80 text-blue-700 border-blue-200',
+  'bg-indigo-50/80 text-indigo-700 border-indigo-200',
+  'bg-violet-50/80 text-violet-700 border-violet-200',
+  
+  'bg-purple-50/80 text-purple-700 border-purple-200',
+  'bg-fuchsia-50/80 text-fuchsia-700 border-fuchsia-200',
+  'bg-pink-50/80 text-pink-700 border-pink-200',
+  'bg-rose-50/80 text-rose-700 border-rose-200',
 ];
 
 export default function EventPanel() {
@@ -94,19 +116,19 @@ export default function EventPanel() {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur rounded-2xl p-5 shadow-sm border border-gray-100 h-full flex flex-col relative" style={{ transform: 'none' }}>
-      <h2 className="text-lg font-bold text-gray-800 mb-4">事件配置</h2>
+    <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50/50 h-full flex flex-col relative" style={{ transform: 'none' }}>
+      <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-6">Quick Config</h2>
       
-      <div className="flex-grow overflow-y-auto pr-1">
-        <div className="flex flex-wrap gap-2">
+      <div className="flex-grow overflow-y-auto pr-2 -mx-2 px-2 custom-scrollbar">
+        <div className="flex flex-wrap gap-3 py-1">
           {/* 橡皮擦工具 */}
           <div 
             onClick={() => setActiveEvent(activeEventId === 'eraser' ? null : 'eraser')}
-            className={`px-3 py-1.5 rounded-full cursor-pointer transition-all border-2 flex items-center gap-1.5 text-sm font-medium ${
-              activeEventId === 'eraser' ? 'border-gray-800 bg-gray-200 text-gray-900 shadow-md scale-105' : 'border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-200'
+            className={`px-4 py-2 rounded-xl cursor-pointer transition-all border flex items-center gap-2 text-sm font-medium ${
+              activeEventId === 'eraser' ? 'border-gray-900 bg-gray-900 text-white shadow-lg scale-105' : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
             }`}
           >
-            <Eraser size={14} /> 橡皮擦
+            <Eraser size={14} /> 擦除
           </div>
 
           {events.map(event => (
@@ -114,42 +136,42 @@ export default function EventPanel() {
               key={event.id}
               onClick={() => setActiveEvent(event.id === activeEventId ? null : event.id)}
               onContextMenu={(e) => handleContextMenu(e, event.id)}
-              className={`px-3 py-1.5 rounded-full cursor-pointer transition-all border-2 flex items-center gap-1.5 text-sm ${
-                activeEventId === event.id ? 'border-gray-800 shadow-md scale-105' : 'border-transparent hover:brightness-95'
+              className={`px-4 py-2 rounded-xl cursor-pointer transition-all border flex items-center gap-2 text-sm ${
+                activeEventId === event.id ? 'shadow-lg scale-105 ring-2 ring-gray-900 ring-offset-2 border-transparent' : 'hover:shadow-md'
               } ${event.color}`}
             >
-              <span className="font-medium text-gray-800">{event.name}</span>
-              <span className="text-xs text-gray-700 opacity-80 bg-white/30 px-1.5 rounded-full">{event.scorePerSlot}</span>
+              <span className="font-medium">{event.name}</span>
+              <span className="text-[10px] opacity-70 bg-black/5 px-2 py-0.5 rounded-md font-bold">{event.scorePerSlot}</span>
             </div>
           ))}
         </div>
         
         {isAdding && (
-          <div className="mt-4 p-3 rounded-xl border-2 border-green-400 bg-green-50/50 flex flex-col gap-2">
+          <div className="mt-6 p-4 rounded-2xl border border-indigo-100 bg-indigo-50/30 flex flex-col gap-3 shadow-sm">
             <input
               type="text"
               value={newName}
               onChange={e => setNewName(e.target.value)}
-              placeholder="事件名称"
-              className="w-full px-2 py-1 text-sm rounded border border-green-200 focus:outline-none focus:ring-1 focus:ring-green-400 bg-white"
+              placeholder="New Event Name"
+              className="w-full px-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white shadow-sm"
               autoFocus
             />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <input
                 type="number"
                 value={newScore}
                 onChange={e => setNewScore(e.target.value)}
-                placeholder="分数"
-                className="w-16 px-2 py-1 text-sm rounded border border-green-200 focus:outline-none focus:ring-1 focus:ring-green-400 bg-white"
+                placeholder="Score"
+                className="w-20 px-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white shadow-sm"
               />
-              <span className="text-xs text-gray-500">分/30分</span>
+              <span className="text-xs text-gray-500 font-medium">pts / 30min</span>
             </div>
-            <div className="flex gap-2 mt-1">
-              <button onClick={handleAdd} className="flex-1 bg-green-500 text-white py-1.5 rounded-lg text-xs font-medium flex items-center justify-center gap-1 hover:bg-green-600 transition-colors">
-                <Check size={14} /> 保存
+            <div className="flex gap-2 mt-2">
+              <button onClick={handleAdd} className="flex-1 bg-indigo-600 text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1 hover:bg-indigo-700 transition-colors shadow-sm">
+                <Check size={14} /> Save
               </button>
-              <button onClick={() => setIsAdding(false)} className="flex-1 bg-gray-200 text-gray-700 py-1.5 rounded-lg text-xs font-medium flex items-center justify-center gap-1 hover:bg-gray-300 transition-colors">
-                <X size={14} /> 取消
+              <button onClick={() => setIsAdding(false)} className="flex-1 bg-white border border-gray-200 text-gray-600 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1 hover:bg-gray-50 transition-colors shadow-sm">
+                <X size={14} /> Cancel
               </button>
             </div>
           </div>
@@ -159,9 +181,9 @@ export default function EventPanel() {
       {!isAdding && (
         <button 
           onClick={() => setIsAdding(true)}
-          className="mt-4 w-full py-2.5 rounded-xl border-2 border-dashed border-gray-200 text-gray-500 hover:border-green-400 hover:text-green-600 transition-colors flex items-center justify-center gap-2 flex-shrink-0 text-sm font-medium"
+          className="mt-6 w-full py-4 rounded-2xl border border-indigo-100 bg-indigo-50/50 text-indigo-600 hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2 flex-shrink-0 text-sm font-bold uppercase tracking-widest shadow-sm"
         >
-          <Plus size={16} /> 添加新事件
+          <Plus size={16} /> Add Event
         </button>
       )}
 
@@ -194,14 +216,21 @@ export default function EventPanel() {
 
               <div>
                 <label className="text-xs text-gray-500 font-medium mb-2 block">事件颜色</label>
-                <div className="flex flex-wrap gap-2">
-                  {EVENT_COLORS.map(color => (
-                    <div 
-                      key={color}
-                      onClick={() => setEditColor(color)}
-                      className={`w-6 h-6 rounded-full cursor-pointer transition-transform ${color} ${editColor === color ? 'ring-2 ring-offset-2 ring-gray-800 scale-110' : 'hover:scale-110'}`}
-                    />
-                  ))}
+                <div className="grid grid-cols-7 gap-2 max-h-[160px] overflow-y-auto p-1 custom-scrollbar">
+                  {EVENT_COLORS.map(color => {
+                    const bgColorClass = color.split(' ')[0]; // 提取 bg-xxx-50/80
+                    return (
+                      <div 
+                        key={color}
+                        onClick={() => setEditColor(color)}
+                        className={`w-8 h-8 rounded-full cursor-pointer transition-all flex items-center justify-center ${bgColorClass} ${
+                          editColor === color 
+                            ? 'ring-2 ring-offset-2 ring-gray-800 scale-110 shadow-sm' 
+                            : 'hover:scale-110 hover:shadow-sm border border-transparent hover:border-gray-200'
+                        }`}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             </div>

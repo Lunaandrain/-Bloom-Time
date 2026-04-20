@@ -17,28 +17,37 @@ export type DailyRecord = {
   totalScore: number;
 };
 
+export type WeightConfig = {
+  lossScore: number;
+  gainScore: number;
+};
+
 interface ScheduleState {
   events: EventConfig[];
   records: Record<string, DailyRecord>; // date -> record
   activeEventId: string | null;
+  weightConfig: WeightConfig;
   addEvent: (event: Omit<EventConfig, 'id'>) => void;
   updateEvent: (id: string, updates: Partial<Omit<EventConfig, 'id'>>) => void;
   deleteEvent: (id: string) => void;
   setActiveEvent: (id: string | null) => void;
   updateTimeBlock: (date: string, timeKey: string, eventId: string) => void;
   updateWeight: (date: string, weight: number) => void;
+  updateWeightConfig: (config: WeightConfig) => void;
 }
 
 export const useScheduleStore = create<ScheduleState>()(
   persist(
     (set) => ({
       events: [
-        { id: '1', name: '睡觉', scorePerSlot: 10, color: 'bg-blue-200' },
-        { id: '2', name: '学习', scorePerSlot: 20, color: 'bg-green-200' },
-        { id: '3', name: '娱乐', scorePerSlot: 0, color: 'bg-yellow-200' },
+        { id: '1', name: '睡觉', scorePerSlot: 10, color: 'bg-indigo-100/70 text-indigo-900 border-indigo-200' },
+        { id: '2', name: '学习', scorePerSlot: 20, color: 'bg-purple-100/70 text-purple-900 border-purple-200' },
+        { id: '3', name: '娱乐', scorePerSlot: 0, color: 'bg-slate-100/70 text-slate-900 border-slate-200' },
       ],
       records: {},
       activeEventId: null,
+      weightConfig: { lossScore: 10, gainScore: -10 },
+      updateWeightConfig: (config) => set({ weightConfig: config }),
       addEvent: (event) => set((state) => ({
         events: [...state.events, { ...event, id: Date.now().toString() }]
       })),
@@ -81,8 +90,8 @@ export const useScheduleStore = create<ScheduleState>()(
         
         let weightScore = 0;
         if (yesterdayRecord && yesterdayRecord.weight !== null && weight !== null) {
-          if (weight < yesterdayRecord.weight) weightScore = 10;
-          else if (weight > yesterdayRecord.weight) weightScore = -10;
+          if (weight < yesterdayRecord.weight) weightScore = state.weightConfig.lossScore;
+          else if (weight > yesterdayRecord.weight) weightScore = state.weightConfig.gainScore;
         }
 
         let newScore = weightScore;
